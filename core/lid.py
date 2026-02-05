@@ -5,7 +5,8 @@ import torch
 # Load model once at module level (Global Cache)
 # 'base' model is ~140MB and good balance of speed/accuracy
 # 'tiny' is ~75MB but less accurate
-MODEL_SIZE = "base"
+# 'tiny' is ~75MB, faster and safer for free cloud tiers
+MODEL_SIZE = "tiny"
 _model = None
 
 class LanguageDetector:
