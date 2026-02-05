@@ -124,8 +124,36 @@ Cloud Run is a fully managed serverless platform for containers.
 4.  **Access**:
     The command will output a Service URL (e.g., `https://voice-detection-api-xyz.a.run.app`).
 
+
 ---
 
-## Notes on Model & Data
+## 5. Deploy to Render (Recommended Free/Easy Option)
+
+Render is great because it supports Docker natively, which solves the "Install FFmpeg" problem automatically.
+
+1.  **Push to GitHub**:
+    -   Ensure your code matches the structure in this folder.
+    -   Commit and push to a GitHub repository.
+
+2.  **Create New Service**:
+    -   Go to [dashboard.render.com](https://dashboard.render.com/).
+    -   Click **New +** -> **Web Service**.
+    -   Connect your GitHub repository.
+
+3.  **Configure Settings**:
+    -   **Name**: `voice-detection-api`
+    -   **Runtime**: Select **Docker** (Critical Step! Do not select Python).
+    -   **Instance Type**: Free (or Starter).
+    -   **Environment Variables**:
+        -   Add `PYTHONUNBUFFERED` = `1` (optional, helps logs).
+
+4.  **Deploy**:
+    -   Click **Create Web Service**.
+    -   Render will detect the `Dockerfile`, build it (this takes ~5 mins), and start the server.
+
+5.  **Access**:
+    -   Render provides a URL like `https://voice-detection-api.onrender.com`.
+    -   Use this URL in your `send_mp3.py` (update `API_URL`).
+
 - **Model File**: The `Dockerfile` copies `model.pkl` into the image. Ensure you run `python train_model.py` locally *before* building the image so the model file exists.
 - **Performance**: Audio processing with `librosa` and `ffmpeg` can be CPU intensive. On Cloud Run/Fargate, assign at least 1 vCPU and 1GB RAM.
