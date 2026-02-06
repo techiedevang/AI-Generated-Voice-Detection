@@ -53,8 +53,14 @@ def detect_voice(request: VoiceDetectionRequest, api_key: str = Depends(get_api_
         
         # Save temp file for processing (needed for LID and clean librosa loading)
         temp_filename = "temp_request_audio.mp3"
+        # Fix incorrect Base64 padding if present
+        b64 = request.audioBase64
+        missing_padding = len(b64) % 4
+        if missing_padding:
+            b64 += '=' * (4 - missing_padding)
+
         with open(temp_filename, "wb") as f:
-            f.write(base64.b64decode(request.audioBase64))
+            f.write(base64.b64decode(b64))
             
         if not final_language:
             print("Language not provided. Auto-detecting...")
