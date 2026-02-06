@@ -1,9 +1,9 @@
 from faster_whisper import WhisperModel
 import os
 
-# 'tiny' is ~75MB, faster and safer for free cloud tiers
-# Using faster-whisper (CTranslate2) drastically reduces memory usage (INT8)
-MODEL_SIZE = "tiny"
+# 'base' is ~140MB, much more accurate than 'tiny'
+# Recommended for local testing or paid cloud instances
+MODEL_SIZE = "base"
 _model = None
 
 class LanguageDetector:
