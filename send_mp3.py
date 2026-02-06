@@ -4,7 +4,7 @@ import urllib.request
 import urllib.error
 import os
 
-API_URL = "https://ai-generated-voice-detection-qb4f.onrender.com/api/voice-detection"
+API_URL = "http://127.0.0.1:8000/api/voice-detection"
 API_KEY = "sk_test_123456789"
 FILE_PATH = "Tamil_voice.mp3"
 
