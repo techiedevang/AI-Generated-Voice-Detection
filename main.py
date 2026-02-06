@@ -38,6 +38,13 @@ from core.lid import get_detector
 import os
 import base64
 
+# Preload model on startup to prevent 502 Timeouts on first request
+@app.on_event("startup")
+async def startup_event():
+    print("Startup: Pre-loading Whisper Model...")
+    get_detector() # Triggers download/load
+    print("Startup: Model loaded. Ready for requests.")
+
 @app.post("/api/voice-detection", response_model=VoiceDetectionResponse)
 def detect_voice(request: VoiceDetectionRequest, api_key: str = Depends(get_api_key)):
     try:
